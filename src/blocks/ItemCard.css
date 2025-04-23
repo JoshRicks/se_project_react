@@ -1,0 +1,32 @@
+@font-face {
+  src: url("../vendor/fonts/CabinetGrotesk-Bold.woff") format("woff");
+  font-family: "Cabinet Grotesk";
+}
+
+.item-card {
+  position: relative;
+}
+
+.item-card__name {
+  position: absolute;
+  top: 17px;
+  left: 137px;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: 0%;
+  color: #00000099;
+  width: 73;
+  height: 24;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 0 12px;
+}
+
+.item-card__img {
+  width: 328px;
+  height: 328px;
+  border: 1px solid #0000004d;
+  border-radius: 8px;
+}
