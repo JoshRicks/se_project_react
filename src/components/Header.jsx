@@ -10,15 +10,17 @@ function Header() {
 
   return (
     <>
-      <div className="header">
-        <img className="header__img" src={headerLogo} alt="wrmr logo" />
-        <p className="header__date">{currentDate}, New York</p>
+      <header className="header">
+        <img className="header__logo" src={headerLogo} alt="wrmr° logo" />
+        <h1 className="header__date">{currentDate}, New York</h1>
         <button className="header__btn" type="button">
           + Add Clothes
         </button>
-        <p className="header__user">Terrence Tegegne</p>
-        <img className="header__avatar" src={avatarImg} alt="avatar" />
-      </div>
+        <div className="header__user-container">
+          <h2 className="header__user">Terrence Tegegne</h2>
+          <img className="header__avatar" src={avatarImg} alt="avatar" />
+        </div>
+      </header>
     </>
   );
 }

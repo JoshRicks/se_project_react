@@ -6,9 +6,13 @@ import Footer from "./Footer.jsx";
 function App() {
   return (
     <>
-      <Header />
-      <Main />
-      <Footer />
+      <div className="page">
+        <div className="page__content">
+          <Header />
+          <Main />
+          <Footer />
+        </div>
+      </div>
     </>
   );
 }

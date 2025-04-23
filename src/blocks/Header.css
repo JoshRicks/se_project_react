@@ -8,9 +8,9 @@
   align-items: center;
   max-width: 1360px;
   height: 40px;
-  padding: 32px 40px 0;
+  padding: 0 0 28px 0;
 }
-.header__img {
+.header__logo {
   width: 89px;
   height: 40px;
   margin: 0 24px 0 0;
@@ -33,6 +33,11 @@
   font-size: 20px;
   line-height: 1.2;
   color: #000;
+}
+.header__user-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .header__user {
   width: 157px;

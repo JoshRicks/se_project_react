@@ -5,8 +5,10 @@ import "../blocks/Main.css";
 function Main() {
   return (
     <>
-      <WeatherCard />
-      <ItemCard />
+      <main className="main">
+        <WeatherCard />
+        <ItemCard />
+      </main>
     </>
   );
 }
