@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import "../blocks/App.css";
 import Header from "./Header.jsx";
@@ -9,6 +8,7 @@ import ModalWithForm from "./ModalWithForm.jsx";
 import ItemModal from "./ItemModal.jsx";
 import { getWeather, filterWeatherData } from "../utils/weatherApi.js";
 import { coordinates, APIkey } from "../utils/constants.js";
+import validation from "../utils/vailidation.js";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -41,6 +41,12 @@ function App() {
       .catch(console.error);
   }, []);
 
+  useEffect(() => {
+    validation.enableValidation(validation.config);
+  }, []);
+
+  const formRef = useRef(null);
+
   const handleCardClick = (card) => {
     setActiveModal("preview-card-modal");
     setSelectedCard(card);
@@ -52,6 +58,10 @@ function App() {
 
   const closeActiveModal = () => {
     setActiveModal("");
+    if (formRef.current) {
+      formRef.current.reset();
+    }
+    validation.resetValidation(validation.config);
   };
 
   return (
@@ -62,28 +72,34 @@ function App() {
           buttonText="Add garment"
           activeModal={activeModal}
           onClose={closeActiveModal}
+          formRef={formRef}
         >
-          <label htmlFor="name-input" className="modal__name-label">
+          <label htmlFor="name-input" className="modal__label">
             Name
             <input
               type="text"
-              className="modal__name-input"
+              className="modal__input"
               id="name-input"
               name="name-input"
               placeholder="Name"
+              minLength="2"
+              maxLength="30"
             />
+            <span id="name-input-error" className="modal__error"></span>
           </label>
 
-          <label htmlFor="image-input" className="modal__link-label">
+          <label htmlFor="image-input" className="modal__label">
             Image
             <input
               type="url"
-              className="modal__link-input"
+              className="modal__input"
               id="image-input"
               name="image-input"
               placeholder="Image URL"
             />
+            <span id="image-input-error" className="modal__error"></span>
           </label>
+
           <fieldset className="modal__radio-buttons">
             <legend className="modal__legend">Select the weather type:</legend>
 
