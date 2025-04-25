@@ -1,32 +1,31 @@
-import cloudyDay from "../assets/cloudy-day.png";
-
 import "../blocks/WeatherCard.css";
-// const weatherImages = {
-//"Sunny Day": require("../assets/sunny-day.png"),
-//"Clouds Day": require("../assets/cloudy-day.png"),
-//"Rain Day": require("../assets/rain-day.png"),
-// "Stormy Day": require("../assets/stormy-day.png"),
-// "Snow Day": require("../assets/snow-day.png"),
-// "Fog Day": require("../assets/fog-day.png"),
-//"Clear Night": require("../assets/clear-night.png"),
-//"Clouds Night": require("../assets/cloudy-night.png"),
-// "Rain Night": require("../assets/rain-night.png"),
-// "Stormy Night": require("../assets/stormy-night.png"),
-// "Snow Night": require("../assets/snow-night.png"),
-// "Fog Night": require("../assets/fog-night.png"),
-//};
+import { weatherImages, defaultWeatherOptions } from "../utils/constants.js";
 
-function WeatherCard() {
+function WeatherCard({ weatherData }) {
+  const filteredOptions = weatherImages.filter((option) => {
+    return (
+      option.day === weatherData.isDay &&
+      option.condition === weatherData.condition
+    );
+  });
+
+  let weatherOption;
+  if (filteredOptions.length === 0) {
+    weatherOption = defaultWeatherOptions[weatherData.isDay ? "day" : "night"];
+  } else {
+    weatherOption = filteredOptions[0];
+  }
   return (
     <>
       <div className="weather">
-        <p className="weather__temp">75°F</p>
-        <img src={cloudyDay} alt="cloudy day" className="weather__img" />
-        {/* <img 
-  src={weatherImages[weather]} 
-  alt={weather} 
-  className="weather__img"
-/> */}
+        <p className="weather__temp">{weatherData.temp.F}°F</p>
+        <img
+          src={weatherOption.url}
+          alt={`Card Showing ${weatherOption.day ? "day" : "night"} time ${
+            weatherOption.condition
+          } weather`}
+          className="weather__img"
+        />
       </div>
     </>
   );

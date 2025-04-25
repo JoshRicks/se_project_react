@@ -10,6 +10,9 @@
   background: #0000004d;
   z-index: 3;
   padding: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s ease-in-out 1.5s, opacity 1s ease-in-out;
 }
 .modal_opened {
   visibility: visible;
@@ -25,6 +28,11 @@
   background-color: #fff;
   padding: 28px 28px 36px;
   border: 1px solid #0000004d;
+}
+.modal__container_type_preview {
+  max-width: 498px;
+  padding: 0;
+  overflow: hidden;
 }
 .modal__form {
   display: flex;
