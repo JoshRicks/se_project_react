@@ -16,18 +16,16 @@ function WeatherCard({ weatherData }) {
     weatherOption = filteredOptions[0];
   }
   return (
-    <>
-      <div className="weather">
-        <p className="weather__temp">{weatherData.temp.F}°F</p>
-        <img
-          src={weatherOption.url}
-          alt={`Card Showing ${weatherOption.day ? "day" : "night"} time ${
-            weatherOption.condition
-          } weather`}
-          className="weather__img"
-        />
-      </div>
-    </>
+    <div className="weather">
+      <p className="weather__temp">{weatherData.temp.F}°F</p>
+      <img
+        src={weatherOption.url}
+        alt={`Card Showing ${weatherOption.day ? "day" : "night"} time ${
+          weatherOption.condition
+        } weather`}
+        className="weather__img"
+      />
+    </div>
   );
 }
 

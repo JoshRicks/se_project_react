@@ -89,7 +89,7 @@
   line-height: 1.25;
   margin: 0 0 12px;
 }
-.modal__checkbox-label {
+.modal__radio-label {
   display: flex;
   flex-direction: row;
   font-family: "Cabinet Grotesk";
@@ -100,10 +100,10 @@
   margin: 0 0 8px;
   align-items: center;
 }
-.modal__checkbox-label:last-child {
+.modal__radio-label:last-child {
   margin-bottom: 0;
 }
-.modal__checkbox {
+.modal__radio {
   appearance: none;
   -webkit-appearance: none;
   width: 16px;
@@ -112,6 +112,10 @@
   border-radius: 50%;
   cursor: pointer;
 }
+.modal__radio:checked {
+  background: radial-gradient(circle, black 40%, transparent 50%);
+}
+
 .modal__submit-btn {
   font-family: "Cabinet Grotesk";
   font-weight: 700;

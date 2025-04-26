@@ -19,8 +19,10 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
 
   useEffect(() => {
-    const handleEscape = (evt) => {
-      if (evt.key === "Escape") {
+    if (!activeModal) return;
+
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
         closeActiveModal();
       }
     };
@@ -30,7 +32,7 @@ function App() {
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, []);
+  }, [activeModal]);
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -65,87 +67,87 @@ function App() {
   };
 
   return (
-    <>
-      <div className="page">
-        <ModalWithForm
-          title="New Garment"
-          buttonText="Add garment"
-          activeModal={activeModal}
-          onClose={closeActiveModal}
-          formRef={formRef}
-        >
-          <label htmlFor="name-input" className="modal__label">
-            Name
+    <div className="page">
+      <ModalWithForm
+        title="New Garment"
+        buttonText="Add garment"
+        id="garment-modal"
+        formId="garment-form"
+        isOpen={activeModal === "garment-modal"}
+        onClose={closeActiveModal}
+        formRef={formRef}
+      >
+        <label htmlFor="name-input" className="modal__label">
+          Name
+          <input
+            type="text"
+            className="modal__input"
+            id="name-input"
+            name="name-input"
+            placeholder="Name"
+            minLength="2"
+            maxLength="30"
+          />
+          <span id="name-input-error" className="modal__error"></span>
+        </label>
+
+        <label htmlFor="image-input" className="modal__label">
+          Image
+          <input
+            type="url"
+            className="modal__input"
+            id="image-input"
+            name="image-input"
+            placeholder="Image URL"
+          />
+          <span id="image-input-error" className="modal__error"></span>
+        </label>
+
+        <fieldset className="modal__radio-buttons">
+          <legend className="modal__legend">Select the weather type:</legend>
+
+          <label htmlFor="hot" className="modal__radio-label">
             <input
-              type="text"
-              className="modal__input"
-              id="name-input"
-              name="name-input"
-              placeholder="Name"
-              minLength="2"
-              maxLength="30"
+              type="radio"
+              className="modal__radio"
+              id="hot"
+              name="weatherType"
             />
-            <span id="name-input-error" className="modal__error"></span>
+            Hot
           </label>
 
-          <label htmlFor="image-input" className="modal__label">
-            Image
+          <label htmlFor="warm" className="modal__radio-label">
             <input
-              type="url"
-              className="modal__input"
-              id="image-input"
-              name="image-input"
-              placeholder="Image URL"
+              type="radio"
+              className="modal__radio"
+              id="warm"
+              name="weatherType"
             />
-            <span id="image-input-error" className="modal__error"></span>
+            Warm
           </label>
 
-          <fieldset className="modal__radio-buttons">
-            <legend className="modal__legend">Select the weather type:</legend>
-
-            <label htmlFor="hot" className="modal__checkbox-label">
-              <input
-                type="checkbox"
-                className="modal__checkbox"
-                id="hot"
-                name="hot"
-              />
-              Hot
-            </label>
-
-            <label htmlFor="warm" className="modal__checkbox-label">
-              <input
-                type="checkbox"
-                className="modal__checkbox"
-                id="warm"
-                name="warm"
-              />
-              Warm
-            </label>
-
-            <label htmlFor="cold" className="modal__checkbox-label">
-              <input
-                type="checkbox"
-                className="modal__checkbox"
-                id="cold"
-                name="cold"
-              />
-              Cold
-            </label>
-          </fieldset>
-        </ModalWithForm>
-        <ItemModal
-          activeModal={activeModal}
-          card={selectedCard}
-          onClose={closeActiveModal}
-        />
-        <div className="page__content">
-          <Header handleAddClick={handleAddClick} weatherData={weatherData} />
-          <Main weatherData={weatherData} handleCardClick={handleCardClick} />
-          <Footer />
-        </div>
+          <label htmlFor="cold" className="modal__radio-label">
+            <input
+              type="radio"
+              className="modal__radio"
+              id="cold"
+              name="weatherType"
+            />
+            Cold
+          </label>
+        </fieldset>
+      </ModalWithForm>
+      <ItemModal
+        activeModal={activeModal}
+        card={selectedCard}
+        onClose={closeActiveModal}
+      />
+      <div className="page__content">
+        <Header handleAddClick={handleAddClick} weatherData={weatherData} />
+        <Main weatherData={weatherData} handleCardClick={handleCardClick} />
+        <Footer />
       </div>
-    </>
+    </div>
   );
 }
 
