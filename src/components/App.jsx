@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from "react";
+import { Routes, Route } from "react-router-dom";
 
 import "../blocks/App.css";
 import Header from "./Header.jsx";
 import Main from "./Main.jsx";
+import Profile from "./Profile.jsx";
 import Footer from "./Footer.jsx";
 import ModalWithForm from "./ModalWithForm.jsx";
 import ItemModal from "./ItemModal.jsx";
@@ -155,7 +157,21 @@ function App() {
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
         >
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
-          <Main weatherData={weatherData} handleCardClick={handleCardClick} />
+          <Routes>
+            <Route
+              path="/se_project_react/"
+              element={
+                <Main
+                  weatherData={weatherData}
+                  handleCardClick={handleCardClick}
+                />
+              }
+            />
+            <Route
+              path="/se_project_react/Profile"
+              element={<Profile handleCardClick={handleCardClick} />}
+            />
+          </Routes>
         </CurrentTemperatureUnitContext.Provider>
         <Footer />
       </div>
