@@ -17,11 +17,10 @@
   line-height: 1.25;
   letter-spacing: 0%;
   color: #00000099;
-  width: 73;
-  height: 24;
   border-radius: 4px;
   background-color: #fff;
   padding: 0 12px;
+  text-align: center;
 }
 
 .item-card__img {

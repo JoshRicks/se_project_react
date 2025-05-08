@@ -39,6 +39,9 @@
   flex-direction: row;
   align-items: center;
 }
+.header__link {
+  text-decoration: none;
+}
 .header__user {
   width: 157px;
   margin: 0 12px 0 0;
