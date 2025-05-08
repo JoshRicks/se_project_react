@@ -1,9 +1,8 @@
 import "../blocks/Profile.css";
 import avatar from "../assets/avatar.svg";
 import ItemCard from "../components/ItemCard";
-import { defaultClothingItems } from "../utils/constants";
 
-function Profile({ handleCardClick }) {
+function Profile({ handleCardClick, clothingItems }) {
   return (
     <section className="profile">
       <div className="profile__user-section">
@@ -15,7 +14,7 @@ function Profile({ handleCardClick }) {
         <button className="profile__add-btn">+ Add new</button>
       </div>
       <ul className="profile__card-list">
-        {defaultClothingItems.map((item) => {
+        {clothingItems.map((item) => {
           return (
             <ItemCard
               key={item._id}

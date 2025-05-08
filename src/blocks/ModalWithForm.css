@@ -131,10 +131,10 @@
   border: none;
   color: #fff;
 }
-.modal__save-button_disabled {
+/* .modal__save-button_disabled {
   background-color: #212121;
   opacity: 50%;
-}
+} */
 .modal__close-btn {
   position: absolute;
   top: 20px;
