@@ -12,8 +12,8 @@ import { getWeather, filterWeatherData } from "../utils/weatherApi.js";
 import { coordinates, APIkey } from "../utils/constants.js";
 import validation from "../utils/vailidation.js";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext.js";
-import { defaultClothingItems } from "../utils/constants.js";
 import DeleteItemModal from "./DeleteItemModal.jsx";
+import { createNewCard, deleteCard, getItems } from "../utils/api.js";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -23,7 +23,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
   const [itemToDelete, setItemToDelete] = useState(null);
 
   useEffect(() => {
@@ -52,14 +52,29 @@ function App() {
   }, []);
 
   useEffect(() => {
+    getItems()
+      .then((data) => {
+        setClothingItems(data);
+        console.log("Clothing items data:", data);
+      })
+      .catch(console.error);
+  }, []);
+
+  useEffect(() => {
     validation.enableValidation(validation.config);
   }, []);
 
   const formRef = useRef(null);
 
   const handleAddItemSubmit = ({ name, imageUrl, weather }) => {
-    setClothingItems([{ name, link: imageUrl, weather }, ...clothingItems]);
-    closeActiveModal();
+    createNewCard({ imageUrl, name, weather })
+      .then((newCard) => {
+        setClothingItems([...clothingItems, newCard]);
+        closeActiveModal();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const handleCardClick = (card) => {
@@ -73,13 +88,18 @@ function App() {
   };
 
   const handleDeleteConfirmation = () => {
-    console.log("Item to delete:", itemToDelete);
-    const updatedItems = clothingItems.filter(
-      (item) => item.link !== itemToDelete.link
-    );
-    setClothingItems(updatedItems);
-    setItemToDelete(null);
-    closeActiveModal();
+    deleteCard(itemToDelete._id)
+      .then(() => {
+        const updatedItems = clothingItems.filter(
+          (item) => item._id !== itemToDelete._id
+        );
+        setClothingItems(updatedItems);
+        setItemToDelete(null);
+        closeActiveModal();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const handleAddClick = () => {
