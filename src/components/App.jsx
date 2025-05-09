@@ -13,6 +13,7 @@ import { coordinates, APIkey } from "../utils/constants.js";
 import validation from "../utils/vailidation.js";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext.js";
 import { defaultClothingItems } from "../utils/constants.js";
+import DeleteItemModal from "./DeleteItemModal.jsx";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -23,6 +24,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [itemToDelete, setItemToDelete] = useState(null);
 
   useEffect(() => {
     if (!activeModal) return;
@@ -57,11 +59,27 @@ function App() {
 
   const handleAddItemSubmit = ({ name, imageUrl, weather }) => {
     setClothingItems([{ name, link: imageUrl, weather }, ...clothingItems]);
+    closeActiveModal();
   };
 
   const handleCardClick = (card) => {
     setActiveModal("preview-card-modal");
     setSelectedCard(card);
+  };
+
+  const handleDeleteClick = (card) => {
+    setActiveModal("delete-card-modal");
+    setItemToDelete(card);
+  };
+
+  const handleDeleteConfirmation = () => {
+    console.log("Item to delete:", itemToDelete);
+    const updatedItems = clothingItems.filter(
+      (item) => item.link !== itemToDelete.link
+    );
+    setClothingItems(updatedItems);
+    setItemToDelete(null);
+    closeActiveModal();
   };
 
   const handleAddClick = () => {
@@ -82,8 +100,6 @@ function App() {
       : setCurrentTemperatureUnit("F");
   };
 
-  const onAddItem = () => {};
-
   return (
     <div className="page">
       <AddItemModal
@@ -96,6 +112,12 @@ function App() {
         activeModal={activeModal}
         card={selectedCard}
         onClose={closeActiveModal}
+        handleDeleteClick={handleDeleteClick}
+      />
+      <DeleteItemModal
+        onClose={closeActiveModal}
+        activeModal={activeModal}
+        onDelete={handleDeleteConfirmation}
       />
       <div className="page__content">
         <CurrentTemperatureUnitContext.Provider
@@ -119,6 +141,7 @@ function App() {
                 <Profile
                   handleCardClick={handleCardClick}
                   clothingItems={clothingItems}
+                  handleAddClick={handleAddClick}
                 />
               }
             />

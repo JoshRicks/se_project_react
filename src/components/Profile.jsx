@@ -2,7 +2,7 @@ import "../blocks/Profile.css";
 import avatar from "../assets/avatar.svg";
 import ItemCard from "../components/ItemCard";
 
-function Profile({ handleCardClick, clothingItems }) {
+function Profile({ handleCardClick, clothingItems, handleAddClick }) {
   return (
     <section className="profile">
       <div className="profile__user-section">
@@ -11,7 +11,9 @@ function Profile({ handleCardClick, clothingItems }) {
       </div>
       <div className="profile__header">
         <p className="profile__description">Your Items</p>
-        <button className="profile__add-btn">+ Add new</button>
+        <button onClick={handleAddClick} className="profile__add-btn">
+          + Add new
+        </button>
       </div>
       <ul className="profile__card-list">
         {clothingItems.map((item) => {

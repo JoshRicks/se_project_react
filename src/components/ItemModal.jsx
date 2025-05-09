@@ -1,7 +1,7 @@
 import "../blocks/ItemModal.css";
 import closeBtn from "../assets/close-btn.svg";
 
-function ItemModal({ activeModal, card, onClose }) {
+function ItemModal({ activeModal, card, onClose, handleDeleteClick }) {
   return (
     <div
       className={`modal ${
@@ -17,6 +17,13 @@ function ItemModal({ activeModal, card, onClose }) {
         <div className="modal__footer">
           <h3 className="modal__caption">{card.name}</h3>
           <p className="modal__weather">Weather: {card.weather}</p>
+          <button
+            onClick={() => handleDeleteClick(card)}
+            type="button"
+            className="modal__delete-btn"
+          >
+            Delete item
+          </button>
         </div>
       </div>
     </div>

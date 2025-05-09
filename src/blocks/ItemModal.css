@@ -11,6 +11,7 @@
 }
 .modal__footer {
   padding: 0 32px 32px;
+  position: relative;
 }
 .modal__caption {
   margin: 0 0 12px;
@@ -25,4 +26,17 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 1.2;
+}
+.modal__delete-btn {
+  position: absolute;
+  top: 0;
+  right: 32px;
+  border: none;
+  background: none;
+  color: #ff4d00;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  padding: 0;
 }

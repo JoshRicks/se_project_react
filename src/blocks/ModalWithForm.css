@@ -34,6 +34,11 @@
   padding: 0;
   overflow: hidden;
 }
+.modal__container_type_delete {
+  display: flex;
+  flex-direction: column;
+  padding: 60px 152px;
+}
 .modal__form {
   display: flex;
   flex-direction: column;
@@ -146,4 +151,33 @@
   border: none;
   background: none;
   padding: 0;
+}
+
+.modal__warning {
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: center;
+  color: #000;
+  margin: 0 0 40px;
+}
+.modal__delete {
+  color: #ff4d00;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  background: none;
+  border: none;
+  margin: 0 0 24px;
+}
+.modal__cancel {
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  background: none;
+  border: none;
+  color: #000;
 }
