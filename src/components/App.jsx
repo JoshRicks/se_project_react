@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import "../blocks/App.css";
 import Header from "./Header.jsx";
@@ -144,28 +144,29 @@ function App() {
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
         >
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
-          <Routes>
+          <Switch>
             <Route
+              exact
               path="/"
-              element={
+              render={() => (
                 <Main
                   weatherData={weatherData}
                   handleCardClick={handleCardClick}
                   clothingItems={clothingItems}
                 />
-              }
+              )}
             />
             <Route
               path="/profile"
-              element={
+              render={() => (
                 <Profile
                   handleCardClick={handleCardClick}
                   clothingItems={clothingItems}
                   handleAddClick={handleAddClick}
                 />
-              }
+              )}
             />
-          </Routes>
+          </Switch>
         </CurrentTemperatureUnitContext.Provider>
         <Footer />
       </div>
