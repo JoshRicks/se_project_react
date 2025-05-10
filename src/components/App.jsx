@@ -156,7 +156,7 @@ function App() {
               }
             />
             <Route
-              path="/Profile"
+              path="/profile"
               element={
                 <Profile
                   handleCardClick={handleCardClick}
