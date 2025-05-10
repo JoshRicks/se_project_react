@@ -16,7 +16,6 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.30.0"
   },
-  "homepage": "https://joshricks.github.io/se_project_react",
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
