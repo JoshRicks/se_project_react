@@ -1,6 +1,24 @@
-# React + Vite
+# WTWR° (What to wear today?)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+About The Project
+
+The concept of the app is straightforward: it sends a request to an API, which returns the daily weather forecast. We then gather and process this weather data it suggest appropriate clothing to the user based on the weather forecast.
+
+What was used?
+
+    - HTML
+    - CSS
+    - JavaScript
+    - React (Tools, Hooks, and Router)
+    - JSX
+    - Api integration
+    - Basic server (adding a full server over next few weeks.)
+
+# Deployment :
+
+This webpage is deployed to GitHub Pages.
+
+Link : https://github.com/JoshRicks/se_project_react
 
 Currently, two official plugins are available:
 
