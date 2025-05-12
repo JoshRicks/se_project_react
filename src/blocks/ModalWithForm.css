@@ -132,13 +132,18 @@
   gap: 8px;
   padding: 8px 16px;
   border-radius: 4px;
-  background-color: #0000004d;
+  background-color: #000000;
   border: none;
   color: #fff;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.modal__submit-btn:hover {
+  background-color: #00000099;
 }
 /* .modal__save-button_disabled {
-  background-color: #212121;
-  opacity: 50%;
+  background-color: #0000004D;
 } */
 .modal__close-btn {
   position: absolute;
