@@ -31,6 +31,7 @@
 }
 .modal__container_type_preview {
   max-width: 498px;
+  top: 106px;
   padding: 0;
   overflow: hidden;
 }
