@@ -1,14 +1,9 @@
+import { checkResponse } from "./constants";
+
 const baseUrl = "http://localhost:3001";
 const headers = {
   authorization: `Content-Type": "application/json`,
 };
-
-function checkResponse(res) {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Error: ${res.status}`);
-}
 
 function getItems() {
   return fetch(`${baseUrl}/items`).then(checkResponse);

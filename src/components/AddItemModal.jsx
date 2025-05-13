@@ -28,7 +28,7 @@ function AddItemModal({ isOpen, onAddItem, onClose, formRef }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onAddItem({ name, imageUrl, weather });
+    onAddItem({ name, imageUrl, weather: weather.toLowerCase() });
     setSubmitCount((count) => count + 1);
   }
 
