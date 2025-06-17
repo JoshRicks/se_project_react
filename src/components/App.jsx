@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { Switch, Route } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 
 import "../blocks/App.css";
 import Header from "./Header.jsx";
@@ -14,6 +20,11 @@ import validation from "../utils/vailidation.js";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext.js";
 import DeleteItemModal from "./DeleteItemModal.jsx";
 import { createNewCard, deleteCard, getItems } from "../utils/api.js";
+import RegisterModal from "./RegisterModal.jsx";
+import LoginModal from "./LoginModal.jsx";
+import ProtectedRoute from "./ProtectedRoute.jsx";
+import * as auth from "../utils/auth.js";
+import { getToken, setToken } from "../utils/token.js";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -25,6 +36,24 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({ name: "", avatar: "" });
+
+  useEffect(() => {
+    const jwt = getToken();
+
+    if (!jwt) {
+      return;
+    }
+    api
+      .getUserInfo(jwt)
+      .then(({ name, avatar }) => {
+        setIsLoggedIn(true);
+        setUserData({ name, avatar });
+        navigate("/profile");
+      })
+      .catch(console.error);
+  }, []);
 
   useEffect(() => {
     if (!activeModal) return;
@@ -65,6 +94,8 @@ function App() {
   }, []);
 
   const formRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleAddItemSubmit = ({ name, imageUrl, weather }) => {
     createNewCard({ imageUrl, name, weather })
@@ -120,6 +151,33 @@ function App() {
       : setCurrentTemperatureUnit("F");
   };
 
+  const handleRegistration = ({ name, email, password, avatar }) => {
+    auth
+      .register(name, password, email, avatar)
+      .then(() => {
+        navigate("/profile");
+      })
+      .catch(console.error);
+  };
+
+  const handleLogin = ({ email, password }) => {
+    if (!email || !password) {
+      return;
+    }
+    auth
+      .authorize(email, password)
+      .then((data) => {
+        if (data.jwt) {
+          setToken(data.jwt);
+          setUserData(data.user);
+          setIsLoggedIn(true);
+          const redirectPath = location.state?.from?.pathname || "/profile";
+          navigate(redirectPath);
+        }
+      })
+      .catch(console.error);
+  };
+
   return (
     <div className="page">
       <AddItemModal
@@ -139,34 +197,58 @@ function App() {
         activeModal={activeModal}
         onDelete={handleDeleteConfirmation}
       />
+      <RegisterModal
+        onClose={closeActiveModal}
+        isOpen={activeModal === "registration-modal"}
+        formRef={formRef}
+        handleRegistration={handleRegistration}
+      />
+      <LoginModal
+        onClose={closeActiveModal}
+        isOpen={activeModal === "login-modal"}
+        formRef={formRef}
+        handleLogin={handleLogin}
+      />
       <div className="page__content">
         <CurrentTemperatureUnitContext.Provider
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
         >
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
-          <Switch>
+          <Routes>
             <Route
-              exact
               path="/"
-              render={() => (
+              element={
                 <Main
                   weatherData={weatherData}
                   handleCardClick={handleCardClick}
                   clothingItems={clothingItems}
                 />
-              )}
+              }
             />
             <Route
               path="/profile"
-              render={() => (
-                <Profile
-                  handleCardClick={handleCardClick}
-                  clothingItems={clothingItems}
-                  handleAddClick={handleAddClick}
-                />
-              )}
+              element={
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Profile
+                    handleCardClick={handleCardClick}
+                    clothingItems={clothingItems}
+                    handleAddClick={handleAddClick}
+                    userData={userData}
+                  />
+                </ProtectedRoute>
+              }
             />
-          </Switch>
+            <Route
+              path="*"
+              element={
+                isLoggedIn ? (
+                  <Navigate to="/profile" replace />
+                ) : (
+                  <Navigate to="/" replace />
+                )
+              }
+            />
+          </Routes>
         </CurrentTemperatureUnitContext.Provider>
         <Footer />
       </div>
