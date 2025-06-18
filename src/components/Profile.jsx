@@ -7,6 +7,7 @@ function Profile({
   clothingItems,
   handleAddClick,
   setIsLoggedIn,
+  userData,
 }) {
   return (
     <section className="profile">
@@ -19,6 +20,7 @@ function Profile({
         handleCardClick={handleCardClick}
         clothingItems={clothingItems}
         handleAddClick={handleAddClick}
+        currentUser={userData}
       />
     </section>
   );

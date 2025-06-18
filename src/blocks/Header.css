@@ -53,4 +53,23 @@
 }
 .header__avatar {
   margin: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.avatar__placeholder {
+  width: 40px;
+  height: 40px;
+  background-color: #00000033;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+  border: solid 1px #00000080;
 }

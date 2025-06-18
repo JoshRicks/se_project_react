@@ -1,6 +1,11 @@
 import ItemCard from "./ItemCard";
 
-function ClothesSection({ handleCardClick, clothingItems, handleAddClick }) {
+function ClothesSection({
+  handleCardClick,
+  clothingItems,
+  handleAddClick,
+  currentUser,
+}) {
   return (
     <>
       <div className="profile__header">
@@ -10,15 +15,17 @@ function ClothesSection({ handleCardClick, clothingItems, handleAddClick }) {
         </button>
       </div>
       <ul className="profile__card-list">
-        {clothingItems.map((item) => {
-          return (
-            <ItemCard
-              key={item._id}
-              item={item}
-              onCardClick={handleCardClick}
-            />
-          );
-        })}
+        {clothingItems
+          .filter((item) => item.owner === currentUser._id)
+          .map((item) => {
+            return (
+              <ItemCard
+                key={item._id}
+                item={item}
+                onCardClick={handleCardClick}
+              />
+            );
+          })}
       </ul>
     </>
   );

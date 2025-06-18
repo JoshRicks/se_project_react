@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 import "../blocks/Header.css";
 import headerLogo from "../assets/logo.svg";
@@ -12,10 +13,17 @@ function Header({
   loginClick,
   signUpClick,
 }) {
+  const [imageError, setImageError] = useState(false);
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
+
+  const getInitial = (name) => {
+    return name ? name.charAt(0).toUpperCase() : "?";
+  };
+
+  const showPlaceholder = imageError || !userData.avatar;
 
   return (
     <header className="header">
@@ -33,11 +41,20 @@ function Header({
         <Link to="/profile" className="header__link">
           <div className="header__user-container">
             <h2 className="header__user">{userData.name}</h2>
-            <img
-              className="header__avatar"
-              src={userData.avatar}
-              alt="avatar"
-            />
+            <>
+              {showPlaceholder ? (
+                <div className="avatar__placeholder">
+                  {getInitial(userData.name)}
+                </div>
+              ) : (
+                <img
+                  className="header__avatar"
+                  src={userData.avatar}
+                  alt="avatar"
+                  onError={() => setImageError(true)}
+                />
+              )}
+            </>
           </div>
         </Link>
       ) : (
