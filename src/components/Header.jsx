@@ -2,10 +2,16 @@ import { Link } from "react-router-dom";
 
 import "../blocks/Header.css";
 import headerLogo from "../assets/logo.svg";
-import avatarImg from "../assets/avatar.svg";
 import ToggleSwitch from "../components/ToggleSwitch";
 
-function Header({ handleAddClick, weatherData }) {
+function Header({
+  handleAddClick,
+  weatherData,
+  isLoggedIn,
+  userData,
+  loginClick,
+  signUpClick,
+}) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -23,12 +29,31 @@ function Header({ handleAddClick, weatherData }) {
       <button onClick={handleAddClick} className="header__btn" type="button">
         + Add Clothes
       </button>
-      <Link to="/profile" className="header__link">
-        <div className="header__user-container">
-          <h2 className="header__user">Terrence Tegegne</h2>
-          <img className="header__avatar" src={avatarImg} alt="avatar" />
-        </div>
-      </Link>
+      {isLoggedIn ? (
+        <Link to="/profile" className="header__link">
+          <div className="header__user-container">
+            <h2 className="header__user">{userData.name}</h2>
+            <img
+              className="header__avatar"
+              src={userData.avatar}
+              alt="avatar"
+            />
+          </div>
+        </Link>
+      ) : (
+        <>
+          <button
+            className="header__sign-up"
+            onClick={signUpClick}
+            type="button"
+          >
+            Sign Up
+          </button>
+          <button className="header__log-in" onClick={loginClick} type="button">
+            Log In
+          </button>
+        </>
+      )}
     </header>
   );
 }
