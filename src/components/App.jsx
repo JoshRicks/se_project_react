@@ -282,12 +282,14 @@ function App() {
           isOpen={activeModal === "registration-modal"}
           formRef={formRef}
           handleRegistration={handleRegistration}
+          loginClick={handleLogInClick}
         />
         <LoginModal
           onClose={closeActiveModal}
           isOpen={activeModal === "login-modal"}
           formRef={formRef}
           handleLogin={handleLogin}
+          signUpClick={handleSignUpClick}
         />
         <EditProfileModal
           onClose={closeActiveModal}

@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import ModalWithForm from "./ModalWithForm";
 
-function LoginModal({ isOpen, onClose, formRef, handleLogin }) {
+function LoginModal({ isOpen, onClose, formRef, handleLogin, signUpClick }) {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -60,7 +60,11 @@ function LoginModal({ isOpen, onClose, formRef, handleLogin }) {
         />
         <span className="modal__error" id="password-input-error"></span>
       </label>
-      <Link className="sign-up__btn" to="registration-modal">
+      <Link
+        className="sign-up__btn"
+        to="registration-modal"
+        onClick={signUpClick}
+      >
         or Sign Up
       </Link>
     </ModalWithForm>

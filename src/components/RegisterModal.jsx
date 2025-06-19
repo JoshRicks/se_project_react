@@ -2,7 +2,13 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import ModalWithForm from "./ModalWithForm";
 
-function RegisterModal({ isOpen, onClose, formRef, handleRegistration }) {
+function RegisterModal({
+  isOpen,
+  onClose,
+  formRef,
+  handleRegistration,
+  loginClick,
+}) {
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -97,7 +103,7 @@ function RegisterModal({ isOpen, onClose, formRef, handleRegistration }) {
           id="registration-avatar-input-error"
         ></span>
       </label>
-      <Link className="login__btn" to="login-modal">
+      <Link className="login__btn" to="login-modal" onClick={loginClick}>
         or Log In
       </Link>
     </ModalWithForm>
