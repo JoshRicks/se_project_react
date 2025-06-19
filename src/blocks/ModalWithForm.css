@@ -187,3 +187,25 @@
   border: none;
   color: #000;
 }
+.login__btn {
+  position: absolute;
+  bottom: 45px;
+  left: 170px;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #00000080;
+  text-decoration: none;
+}
+.sign-up__btn {
+  position: absolute;
+  bottom: 45px;
+  left: 170px;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #00000080;
+  text-decoration: none;
+}

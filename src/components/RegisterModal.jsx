@@ -4,10 +4,10 @@ import ModalWithForm from "./ModalWithForm";
 
 function RegisterModal({ isOpen, onClose, formRef, handleRegistration }) {
   const [data, setData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    avatar: "",
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,8 +18,8 @@ function RegisterModal({ isOpen, onClose, formRef, handleRegistration }) {
   };
   const handleRegistrationSubmit = (e) => {
     e.preventDefault();
+    console.log(data);
     handleRegistration(data);
-    onClose;
   };
 
   return (
@@ -40,10 +40,14 @@ function RegisterModal({ isOpen, onClose, formRef, handleRegistration }) {
           className="modal__input"
           id="registration-email-input"
           placeholder="Email"
+          name="email"
           value={data.email}
           onChange={handleChange}
         />
-        <span className="modal__error" id="email-input-error"></span>
+        <span
+          className="modal__error"
+          id="registration-email-input-error"
+        ></span>
       </label>
       <label htmlFor="registration-password-input" className="modal__label">
         Password*
@@ -52,10 +56,14 @@ function RegisterModal({ isOpen, onClose, formRef, handleRegistration }) {
           className="modal__input"
           id="registration-password-input"
           placeholder="Password"
+          name="password"
           value={data.password}
           onChange={handleChange}
         />
-        <span className="modal__error" id="password-input-error"></span>
+        <span
+          className="modal__error"
+          id="registration-password-input-error"
+        ></span>
       </label>
       <label htmlFor="registration-name-input" className="modal__label">
         Name*
@@ -64,10 +72,14 @@ function RegisterModal({ isOpen, onClose, formRef, handleRegistration }) {
           className="modal__input"
           id="registration-name-input"
           placeholder="Name"
+          name="name"
           value={data.name}
           onChange={handleChange}
         />
-        <span className="modal__error" id="name-input-error"></span>
+        <span
+          className="modal__error"
+          id="registration-name-input-error"
+        ></span>
       </label>
       <label htmlFor="registration-avatar-input" className="modal__label">
         Avatar URL*
@@ -76,17 +88,18 @@ function RegisterModal({ isOpen, onClose, formRef, handleRegistration }) {
           className="modal__input"
           id="registration-avatar-input"
           placeholder="Avatar URL"
-          value={data.link}
+          name="avatar"
+          value={data.avatar}
           onChange={handleChange}
         />
-        <span className="modal__error" id="email-input-error"></span>
+        <span
+          className="modal__error"
+          id="registration-avatar-input-error"
+        ></span>
       </label>
-      <div className="modal__login">
-        <p className="login__text">or</p>
-        <Link className="login__btn" to="login-modal">
-          Log In
-        </Link>
-      </div>
+      <Link className="login__btn" to="login-modal">
+        or Log In
+      </Link>
     </ModalWithForm>
   );
 }

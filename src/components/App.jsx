@@ -19,13 +19,20 @@ import { coordinates, APIkey } from "../utils/constants.js";
 import validation from "../utils/vailidation.js";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext.js";
 import DeleteItemModal from "./DeleteItemModal.jsx";
-import { createNewCard, deleteCard, getItems } from "../utils/api.js";
+import {
+  createNewCard,
+  deleteCard,
+  getItems,
+  addCardLike,
+  removeCardLike,
+} from "../utils/api.js";
 import RegisterModal from "./RegisterModal.jsx";
 import LoginModal from "./LoginModal.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import * as auth from "../utils/auth.js";
 import { getToken, setToken } from "../utils/token.js";
 import CurrentUser from "../contexts/CurrentUserContext.js";
+import EditProfileModal from "./EditProfileModal.jsx";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -39,6 +46,7 @@ function App() {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({ name: "", avatar: "" });
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     const jwt = getToken();
@@ -46,11 +54,15 @@ function App() {
     if (!jwt) {
       return;
     }
-    api
+    auth
       .getUserInfo(jwt)
-      .then(({ name, avatar }) => {
+      .then((data) => {
         setIsLoggedIn(true);
-        setUserData({ name, avatar });
+        setUserData({
+          name: data.data.name,
+          avatar: data.data.avatar,
+          _id: data.data._id,
+        });
         navigate("/profile");
       })
       .catch(console.error);
@@ -85,7 +97,6 @@ function App() {
     getItems()
       .then((data) => {
         setClothingItems(data);
-        console.log("Clothing items data:", data);
       })
       .catch(console.error);
   }, []);
@@ -99,9 +110,10 @@ function App() {
   const location = useLocation();
 
   const handleAddItemSubmit = ({ name, imageUrl, weather }) => {
-    createNewCard({ imageUrl, name, weather })
-      .then((newCard) => {
-        setClothingItems([newCard, ...clothingItems]);
+    const token = getToken();
+    createNewCard({ token, imageUrl, name, weather })
+      .then((data) => {
+        setClothingItems([data, ...clothingItems]);
         closeActiveModal();
       })
       .catch((error) => {
@@ -128,7 +140,8 @@ function App() {
   };
 
   const handleDeleteConfirmation = () => {
-    deleteCard(itemToDelete._id)
+    const token = getToken();
+    deleteCard(itemToDelete._id, token)
       .then(() => {
         const updatedItems = clothingItems.filter(
           (item) => item._id !== itemToDelete._id
@@ -146,6 +159,10 @@ function App() {
     setActiveModal("garment-modal");
   };
 
+  const handleEditProfileClick = () => {
+    setActiveModal("edit-profile-modal");
+  };
+
   const closeActiveModal = () => {
     setActiveModal("");
     if (formRef.current) {
@@ -160,9 +177,9 @@ function App() {
       : setCurrentTemperatureUnit("F");
   };
 
-  const handleRegistration = ({ name, email, password, avatar }) => {
+  const handleRegistration = ({ email, password, name, avatar }) => {
     auth
-      .register(name, password, email, avatar)
+      .register(email, password, name, avatar)
       .then(() => {
         navigate("/profile");
       })
@@ -170,21 +187,73 @@ function App() {
   };
 
   const handleLogin = ({ email, password }) => {
+    console.log("Login attempt with:", { email, password });
     if (!email || !password) {
       return;
     }
     auth
       .authorize(email, password)
       .then((data) => {
-        if (data.jwt) {
-          setToken(data.jwt);
-          setUserData(data.user);
+        console.log("Auth response:", data);
+        if (data.token) {
+          setToken(data.token);
           setIsLoggedIn(true);
+          return auth.getUserInfo(data.token);
+        }
+      })
+      .then((data) => {
+        if (data) {
+          setUserData({
+            name: data.data.name,
+            avatar: data.data.avatar,
+            _id: data.data._id,
+          });
           const redirectPath = location.state?.from?.pathname || "/profile";
           navigate(redirectPath);
         }
       })
       .catch(console.error);
+  };
+
+  const handleEditProfile = ({ name, avatar }) => {
+    const token = getToken();
+    auth
+      .editUser(name, avatar, token)
+      .then((data) => {
+        if (data) {
+          setUserData({ name: data.name, avatar: data.avatar, _id: data._id });
+        }
+      })
+      .catch(console.error);
+  };
+
+  const getInitial = (name) => {
+    return name ? name.charAt(0).toUpperCase() : "?";
+  };
+
+  const showPlaceholder = imageError || !userData.avatar;
+
+  const handleCardLike = ({ id, isLiked }) => {
+    const token = getToken();
+    !isLiked
+      ? addCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) => {
+              return cards.map((item) =>
+                item._id === id ? updatedCard.data : item
+              );
+            });
+          })
+          .catch((err) => console.log(err))
+      : removeCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) => {
+              return cards.map((item) =>
+                item._id === id ? updatedCard.data : item
+              );
+            });
+          })
+          .catch((err) => console.log(err));
   };
 
   return (
@@ -201,6 +270,7 @@ function App() {
           card={selectedCard}
           onClose={closeActiveModal}
           handleDeleteClick={handleDeleteClick}
+          currentUser={userData}
         />
         <DeleteItemModal
           onClose={closeActiveModal}
@@ -219,6 +289,12 @@ function App() {
           formRef={formRef}
           handleLogin={handleLogin}
         />
+        <EditProfileModal
+          onClose={closeActiveModal}
+          isOpen={activeModal === "edit-profile-modal"}
+          formRef={formRef}
+          handleEditProfile={handleEditProfile}
+        />
         <div className="page__content">
           <CurrentTemperatureUnitContext.Provider
             value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -230,6 +306,9 @@ function App() {
               weatherData={weatherData}
               isLoggedIn={isLoggedIn}
               userData={userData}
+              getInitial={getInitial}
+              showPlaceholder={showPlaceholder}
+              setImageError={setImageError}
             />
             <Routes>
               <Route
@@ -239,6 +318,8 @@ function App() {
                     weatherData={weatherData}
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    onCardLike={handleCardLike}
+                    userData={userData}
                   />
                 }
               />
@@ -252,6 +333,11 @@ function App() {
                       handleAddClick={handleAddClick}
                       userData={userData}
                       setIsLoggedIn={setIsLoggedIn}
+                      getInitial={getInitial}
+                      showPlaceholder={showPlaceholder}
+                      setImageError={setImageError}
+                      handleEditProfileClick={handleEditProfileClick}
+                      onCardLike={handleCardLike}
                     />
                   </ProtectedRoute>
                 }

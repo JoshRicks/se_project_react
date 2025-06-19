@@ -5,7 +5,7 @@ import ModalWithForm from "./ModalWithForm";
 
 function LoginModal({ isOpen, onClose, formRef, handleLogin }) {
   const [data, setData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -17,9 +17,11 @@ function LoginModal({ isOpen, onClose, formRef, handleLogin }) {
     }));
   };
   function handleLoginSubmit(e) {
-    e.preventdefault();
+    console.log("submitted");
+    console.log("Login data:", data);
+    e.preventDefault();
     handleLogin(data);
-    onClose;
+    onClose();
   }
   return (
     <ModalWithForm
@@ -39,6 +41,7 @@ function LoginModal({ isOpen, onClose, formRef, handleLogin }) {
           className="modal__input"
           id="email-input"
           placeholder="Email"
+          name="email"
           value={data.email}
           onChange={handleChange}
         />
@@ -51,17 +54,15 @@ function LoginModal({ isOpen, onClose, formRef, handleLogin }) {
           className="modal__input"
           id="password-input"
           placeholder="Password"
+          name="password"
           value={data.password}
           onChange={handleChange}
         />
         <span className="modal__error" id="password-input-error"></span>
       </label>
-      <div className="modal__sign-up">
-        <p className="sign-up__text">or</p>
-        <Link className="sign-up__btn" to="registration-modal">
-          Sign Up
-        </Link>
-      </div>
+      <Link className="sign-up__btn" to="registration-modal">
+        or Sign Up
+      </Link>
     </ModalWithForm>
   );
 }

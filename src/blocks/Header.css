@@ -43,7 +43,7 @@
   text-decoration: none;
 }
 .header__user {
-  width: 157px;
+  max-width: 157px;
   margin: 0 12px 0 0;
   font-family: "Cabinet Grotesk";
   font-weight: 700;
@@ -72,4 +72,31 @@
   font-size: 20px;
   line-height: 1;
   border: solid 1px #00000080;
+}
+
+.header__sign-up {
+  padding: 0;
+  width: 68px;
+  height: 24px;
+  border: none;
+  background: none;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #000;
+}
+
+.header__log-in {
+  padding: 0;
+  width: 53px;
+  height: 24px;
+  margin: 0 0 0 20px;
+  border: none;
+  background: none;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #000;
 }

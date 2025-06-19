@@ -5,6 +5,7 @@ function ClothesSection({
   clothingItems,
   handleAddClick,
   currentUser,
+  onCardLike,
 }) {
   return (
     <>
@@ -23,6 +24,8 @@ function ClothesSection({
                 key={item._id}
                 item={item}
                 onCardClick={handleCardClick}
+                onCardLike={onCardLike}
+                currentUser={currentUser}
               />
             );
           })}

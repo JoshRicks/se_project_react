@@ -13,12 +13,20 @@
 
 .profile__user-section {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 8px;
   grid-column: 1;
   grid-row: 1 / -1;
   align-items: flex-start;
   width: 345px;
   padding-top: 20px;
+}
+.profile__details {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
 }
 .profile__avatar {
   width: 56px;
@@ -31,7 +39,7 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 1;
-  margin: 20px 0 0 16px;
+  margin: 0 0 0 0;
   color: #000;
 }
 .profile__header {
@@ -67,4 +75,23 @@
   margin: 0;
   padding: 0;
   height: fit-content;
+}
+.profile-edit__btn {
+  background: none;
+  border: none;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+  color: #000;
+  padding-top: 16px;
+}
+.profile__sign-out {
+  background: none;
+  border: none;
+  font-family: "Cabinet Grotesk";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+  color: #000;
 }

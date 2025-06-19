@@ -8,9 +8,6 @@
 }
 
 .item-card__name {
-  position: absolute;
-  top: 17px;
-  left: 137px;
   font-family: "Cabinet Grotesk";
   font-weight: 700;
   font-size: 16px;
@@ -28,4 +25,21 @@
   height: 328px;
   border: 1px solid #0000004d;
   border-radius: 8px;
+}
+
+.item-card__like-btn {
+  height: 18px;
+  width: 15px;
+  border: none;
+  background: none;
+}
+.item-card__name-like-container {
+  position: absolute;
+  top: 17px;
+  left: 137px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }

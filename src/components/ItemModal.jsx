@@ -1,8 +1,14 @@
 import "../blocks/ItemModal.css";
 import closeBtn from "../assets/close-btn.svg";
 
-function ItemModal({ activeModal, card, onClose, handleDeleteClick }) {
-  const isOwn = selectedCard.owner === currentUser._id;
+function ItemModal({
+  activeModal,
+  card,
+  onClose,
+  handleDeleteClick,
+  currentUser,
+}) {
+  const isOwn = card.owner === currentUser._id;
   const itemDeleteButtonClassName = `modal__delete-button ${
     isOwn ? "" : "modal__delete-button_hidden"
   }`;

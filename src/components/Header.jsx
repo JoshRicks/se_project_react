@@ -12,18 +12,14 @@ function Header({
   userData,
   loginClick,
   signUpClick,
+  getInitial,
+  setImageError,
+  showPlaceholder,
 }) {
-  const [imageError, setImageError] = useState(false);
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
-
-  const getInitial = (name) => {
-    return name ? name.charAt(0).toUpperCase() : "?";
-  };
-
-  const showPlaceholder = imageError || !userData.avatar;
 
   return (
     <header className="header">

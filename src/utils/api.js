@@ -1,19 +1,17 @@
 import { checkResponse } from "./constants";
 
 const baseUrl = "http://localhost:3001";
-const headers = {
-  authorization: `Content-Type": "application/json`,
-};
 
 function getItems() {
   return fetch(`${baseUrl}/items`).then(checkResponse);
 }
 
-function createNewCard({ imageUrl, name, weather }) {
+function createNewCard({ token, imageUrl, name, weather }) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       name,
@@ -23,10 +21,25 @@ function createNewCard({ imageUrl, name, weather }) {
   }).then(checkResponse);
 }
 
-function deleteCard(id) {
+function deleteCard(id, token) {
   return fetch(`${baseUrl}/items/${id}`, {
     method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
   }).then(checkResponse);
 }
 
-export { getItems, createNewCard, deleteCard };
+function addCardLike(id, token) {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "PUT",
+    headers: { Authorization: `Bearer ${token}` },
+  }).then(checkResponse);
+}
+
+function removeCardLike(id, token) {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  }).then(checkResponse);
+}
+
+export { getItems, createNewCard, deleteCard, addCardLike, removeCardLike };
