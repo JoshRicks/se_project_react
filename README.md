@@ -12,7 +12,9 @@ What was used?
     - React (Tools, Hooks, and Router)
     - JSX
     - Api integration
-    - Basic server (adding a full server over next few weeks.)
+    - backend built with express.js https://github.com/JoshRicks/se_project_express
+    - authorization
+    - JWT
 
 # Deployment :
 
