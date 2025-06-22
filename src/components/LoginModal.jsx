@@ -21,7 +21,6 @@ function LoginModal({ isOpen, onClose, formRef, handleLogin, signUpClick }) {
     console.log("Login data:", data);
     e.preventDefault();
     handleLogin(data);
-    onClose();
   }
   return (
     <ModalWithForm

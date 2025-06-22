@@ -3,11 +3,11 @@
   font-family: "Cabinet Grotesk";
 }
 .modal__image {
-  max-width: 498px;
+  width: 498px;
   height: 498px;
   padding: 0;
   margin: 0 0 20px;
-  object-fit: cover;
+  object-fit: fill;
 }
 .modal__footer {
   padding: 0 32px 32px;
@@ -39,4 +39,7 @@
   font-size: 20px;
   line-height: 1.2;
   padding: 0;
+}
+.modal__delete-button-hidden {
+  visibility: hidden;
 }

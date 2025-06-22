@@ -43,3 +43,6 @@
   align-items: center;
   gap: 10px;
 }
+.hidden_like-btn {
+  visibility: hidden;
+}

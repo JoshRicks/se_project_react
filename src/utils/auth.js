@@ -1,3 +1,5 @@
+import { checkResponse } from "./constants";
+
 export const BASE_URL = "http://localhost:3001";
 
 export const register = (email, password, name, avatar) => {
@@ -8,9 +10,7 @@ export const register = (email, password, name, avatar) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password, name, avatar }),
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(checkResponse);
 };
 export const authorize = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
@@ -20,9 +20,7 @@ export const authorize = (email, password) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(checkResponse);
 };
 
 export const getUserInfo = (token) => {
@@ -33,9 +31,7 @@ export const getUserInfo = (token) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(checkResponse);
 };
 export const editUser = (name, avatar, token) => {
   return fetch(`${BASE_URL}/users/me`, {
@@ -46,7 +42,5 @@ export const editUser = (name, avatar, token) => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ name, avatar }),
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(checkResponse);
 };

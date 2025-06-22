@@ -30,29 +30,36 @@ function Header({
         {currentDate}, {weatherData.city}
       </h1>
       <ToggleSwitch />
-      <button onClick={handleAddClick} className="header__btn" type="button">
-        + Add Clothes
-      </button>
+
       {isLoggedIn ? (
-        <Link to="/profile" className="header__link">
-          <div className="header__user-container">
-            <h2 className="header__user">{userData.name}</h2>
-            <>
-              {showPlaceholder ? (
-                <div className="avatar__placeholder">
-                  {getInitial(userData.name)}
-                </div>
-              ) : (
-                <img
-                  className="header__avatar"
-                  src={userData.avatar}
-                  alt="avatar"
-                  onError={() => setImageError(true)}
-                />
-              )}
-            </>
-          </div>
-        </Link>
+        <>
+          <button
+            onClick={handleAddClick}
+            className="header__btn"
+            type="button"
+          >
+            + Add Clothes
+          </button>
+          <Link to="/profile" className="header__link">
+            <div className="header__user-container">
+              <h2 className="header__user">{userData.name}</h2>
+              <>
+                {showPlaceholder ? (
+                  <div className="avatar__placeholder">
+                    {getInitial(userData.name)}
+                  </div>
+                ) : (
+                  <img
+                    className="header__avatar"
+                    src={userData.avatar}
+                    alt="avatar"
+                    onError={() => setImageError(true)}
+                  />
+                )}
+              </>
+            </div>
+          </Link>
+        </>
       ) : (
         <>
           <button

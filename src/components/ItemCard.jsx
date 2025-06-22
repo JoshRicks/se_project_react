@@ -2,10 +2,10 @@ import "../blocks/ItemCard.css";
 import likeButton from "../assets/like-button.svg";
 import likedButton from "../assets/liked-btn.svg";
 
-function ItemCard({ item, onCardClick, onCardLike, currentUser }) {
+function ItemCard({ item, onCardClick, onCardLike, isLoggedIn }) {
   const isLiked = item.likes.some((id) => id === currentUser._id);
   const itemLikeButtonImage = isLiked ? likedButton : likeButton;
-  const itemLikeButtonClassName = currentUser
+  const itemLikeButtonClassName = isLoggedIn
     ? "item-card__like-btn"
     : "hidden_like-btn";
 

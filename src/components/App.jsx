@@ -112,8 +112,8 @@ function App() {
   const handleAddItemSubmit = ({ name, imageUrl, weather }) => {
     const token = getToken();
     createNewCard({ token, imageUrl, name, weather })
-      .then((data) => {
-        setClothingItems([data, ...clothingItems]);
+      .then((res) => {
+        setClothingItems([res.data, ...clothingItems]);
         closeActiveModal();
       })
       .catch((error) => {
@@ -183,6 +183,7 @@ function App() {
       .then(() => {
         navigate("/profile");
       })
+      .then(closeActiveModal)
       .catch(console.error);
   };
 
@@ -212,6 +213,7 @@ function App() {
           navigate(redirectPath);
         }
       })
+      .then(closeActiveModal)
       .catch(console.error);
   };
 
@@ -224,6 +226,7 @@ function App() {
           setUserData({ name: data.name, avatar: data.avatar, _id: data._id });
         }
       })
+      .then(closeActiveModal)
       .catch(console.error);
   };
 
@@ -321,7 +324,7 @@ function App() {
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
                     onCardLike={handleCardLike}
-                    userData={userData}
+                    isLoggedIn={isLoggedIn}
                   />
                 }
               />

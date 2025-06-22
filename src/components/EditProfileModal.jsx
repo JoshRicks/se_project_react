@@ -1,12 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
+import { getUserInfo } from "../utils/auth";
 import ModalWithForm from "./ModalWithForm";
+import { getToken } from "../utils/token";
 
 function EditProfileModal({ isOpen, onClose, formRef, handleEditProfile }) {
   const [data, setData] = useState({
     name: "",
     avatar: "",
   });
+
+  useEffect(() => {
+    const token = getToken();
+
+    if (!token) {
+      return;
+    }
+    getUserInfo(token)
+      .then((res) => {
+        setData({ name: res.data.name, avatar: res.data.avatar });
+      })
+      .catch(console.error);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +34,6 @@ function EditProfileModal({ isOpen, onClose, formRef, handleEditProfile }) {
   function handleEditProfileSubmit(e) {
     e.preventDefault();
     handleEditProfile(data);
-    onClose();
   }
 
   return (

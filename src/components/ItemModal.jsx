@@ -9,9 +9,10 @@ function ItemModal({
   currentUser,
 }) {
   const isOwn = card.owner === currentUser._id;
-  const itemDeleteButtonClassName = `modal__delete-button ${
-    isOwn ? "" : "modal__delete-button_hidden"
-  }`;
+  const itemDeleteButtonClassName = isOwn
+    ? "modal__delete-btn"
+    : "modal__delete-button-hidden";
+
   return (
     <div
       className={`modal ${
