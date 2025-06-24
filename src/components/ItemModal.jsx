@@ -1,13 +1,10 @@
 import "../blocks/ItemModal.css";
 import closeBtn from "../assets/close-btn.svg";
+import { useContext } from "react";
+import CurrentUser from "../contexts/CurrentUserContext";
 
-function ItemModal({
-  activeModal,
-  card,
-  onClose,
-  handleDeleteClick,
-  currentUser,
-}) {
+function ItemModal({ activeModal, card, onClose, handleDeleteClick }) {
+  const currentUser = useContext(CurrentUser);
   const isOwn = card.owner === currentUser._id;
   const itemDeleteButtonClassName = isOwn
     ? "modal__delete-btn"

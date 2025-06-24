@@ -1,12 +1,15 @@
+import { useContext } from "react";
 import ItemCard from "./ItemCard";
+import CurrentUser from "../contexts/CurrentUserContext";
 
 function ClothesSection({
   handleCardClick,
   clothingItems,
   handleAddClick,
-  currentUser,
   onCardLike,
+  isLoggedIn,
 }) {
+  const currentUser = useContext(CurrentUser);
   return (
     <>
       <div className="profile__header">
@@ -25,7 +28,7 @@ function ClothesSection({
                 item={item}
                 onCardClick={handleCardClick}
                 onCardLike={onCardLike}
-                currentUser={currentUser}
+                isLoggedIn={isLoggedIn}
               />
             );
           })}

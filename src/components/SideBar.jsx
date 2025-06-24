@@ -1,15 +1,17 @@
 import { useNavigate } from "react-router-dom";
 
 import { removeToken } from "../utils/token";
+import { useContext } from "react";
+import CurrentUser from "../contexts/CurrentUserContext";
 
 function SideBar({
   setIsLoggedIn,
   getInitial,
   showPlaceholder,
   setImageError,
-  userData,
   handleEditProfileClick,
 }) {
+  const userData = useContext(CurrentUser);
   const navigate = useNavigate();
   function signOut() {
     removeToken();

@@ -310,7 +310,6 @@ function App() {
               signUpClick={handleSignUpClick}
               weatherData={weatherData}
               isLoggedIn={isLoggedIn}
-              userData={userData}
               getInitial={getInitial}
               showPlaceholder={showPlaceholder}
               setImageError={setImageError}
@@ -336,13 +335,13 @@ function App() {
                       handleCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       handleAddClick={handleAddClick}
-                      userData={userData}
                       setIsLoggedIn={setIsLoggedIn}
                       getInitial={getInitial}
                       showPlaceholder={showPlaceholder}
                       setImageError={setImageError}
                       handleEditProfileClick={handleEditProfileClick}
                       onCardLike={handleCardLike}
+                      isLoggedIn={isLoggedIn}
                     />
                   </ProtectedRoute>
                 }

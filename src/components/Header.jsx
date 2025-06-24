@@ -1,21 +1,25 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import {
+  Link,
+  UNSAFE_createClientRoutesWithHMRRevalidationOptOut,
+} from "react-router-dom";
+import { useContext, useState } from "react";
 
 import "../blocks/Header.css";
 import headerLogo from "../assets/logo.svg";
 import ToggleSwitch from "../components/ToggleSwitch";
+import CurrentUser from "../contexts/CurrentUserContext";
 
 function Header({
   handleAddClick,
   weatherData,
   isLoggedIn,
-  userData,
   loginClick,
   signUpClick,
   getInitial,
   setImageError,
   showPlaceholder,
 }) {
+  const userData = useContext(CurrentUser);
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",

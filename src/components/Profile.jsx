@@ -7,12 +7,12 @@ function Profile({
   clothingItems,
   handleAddClick,
   setIsLoggedIn,
-  userData,
   getInitial,
   showPlaceholder,
   setImageError,
   handleEditProfileClick,
   onCardLike,
+  isLoggedIn,
 }) {
   return (
     <section className="profile">
@@ -22,7 +22,6 @@ function Profile({
         getInitial={getInitial}
         showPlaceholder={showPlaceholder}
         setImageError={setImageError}
-        userData={userData}
         handleEditProfileClick={handleEditProfileClick}
       />
       <ClothesSection
@@ -30,8 +29,8 @@ function Profile({
         handleCardClick={handleCardClick}
         clothingItems={clothingItems}
         handleAddClick={handleAddClick}
-        currentUser={userData}
         onCardLike={onCardLike}
+        isLoggedIn={isLoggedIn}
       />
     </section>
   );
