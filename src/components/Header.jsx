@@ -1,8 +1,5 @@
-import {
-  Link,
-  UNSAFE_createClientRoutesWithHMRRevalidationOptOut,
-} from "react-router-dom";
-import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
 
 import "../blocks/Header.css";
 import headerLogo from "../assets/logo.svg";
