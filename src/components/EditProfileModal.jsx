@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import { getUserInfo } from "../utils/auth";
 import ModalWithForm from "./ModalWithForm";
 import { getToken } from "../utils/token";
+import CurrentUser from "../contexts/CurrentUserContext";
 
 function EditProfileModal({ isOpen, onClose, formRef, handleEditProfile }) {
+  const currentUser = useContext(CurrentUser);
   const [data, setData] = useState({
     name: "",
     avatar: "",
@@ -16,12 +18,8 @@ function EditProfileModal({ isOpen, onClose, formRef, handleEditProfile }) {
     if (!token) {
       return;
     }
-    getUserInfo(token)
-      .then((res) => {
-        setData({ name: res.data.name, avatar: res.data.avatar });
-      })
-      .catch(console.error);
-  }, []);
+    setData({ name: currentUser.name, avatar: currentUser.avatar });
+  }, [currentUser]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
