@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 
-import { getUserInfo } from "../utils/auth";
 import ModalWithForm from "./ModalWithForm";
 import { getToken } from "../utils/token";
 import CurrentUser from "../contexts/CurrentUserContext";
