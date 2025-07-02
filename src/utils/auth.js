@@ -1,6 +1,9 @@
 import { checkResponse } from "./constants";
 
-export const BASE_URL = "http://localhost:3001";
+const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://api.wtwr.eithermouse.com"
+    : "http://localhost:3001";
 
 export const register = (email, password, name, avatar) => {
   return fetch(`${BASE_URL}/signup`, {

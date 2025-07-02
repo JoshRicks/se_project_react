@@ -1,6 +1,9 @@
 import { checkResponse } from "./constants";
 
-const baseUrl = "http://localhost:3001";
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.wtwr.eithermouse.com"
+    : "http://localhost:3001";
 
 function getItems() {
   return fetch(`${baseUrl}/items`).then(checkResponse);
