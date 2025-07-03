@@ -18,9 +18,9 @@ What was used?
 
 # Deployment :
 
-This webpage is deployed to GitHub Pages.
+This webpage is deployed via google cloud.
 
-Link : https://github.com/JoshRicks/se_project_react
+Link : https://www.wtwr.eithermouse.com
 
 Currently, two official plugins are available:
 
