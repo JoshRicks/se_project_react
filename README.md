@@ -21,6 +21,7 @@ What was used?
 This webpage is deployed via google cloud.
 
 Link : https://www.wtwr.eithermouse.com
+Backend : https://api.wtwr.eithermouse.com
 
 Currently, two official plugins are available:
 
