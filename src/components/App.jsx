@@ -144,7 +144,7 @@ function App() {
     deleteCard(itemToDelete._id, token)
       .then(() => {
         const updatedItems = clothingItems.filter(
-          (item) => item._id !== itemToDelete._id
+          (item) => item._id !== itemToDelete._id,
         );
         setClothingItems(updatedItems);
         setItemToDelete(null);
@@ -243,7 +243,7 @@ function App() {
           .then((updatedCard) => {
             setClothingItems((cards) => {
               return cards.map((item) =>
-                item._id === id ? updatedCard.data : item
+                item._id === id ? updatedCard.data : item,
               );
             });
           })
@@ -252,7 +252,7 @@ function App() {
           .then((updatedCard) => {
             setClothingItems((cards) => {
               return cards.map((item) =>
-                item._id === id ? updatedCard.data : item
+                item._id === id ? updatedCard.data : item,
               );
             });
           })
