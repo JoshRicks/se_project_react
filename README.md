@@ -18,6 +18,8 @@ What was used?
 
 # Deployment :
 
+For the source code: https://github.com/JoshRicks/se_project_react
+
 This webpage is deployed via google cloud.
 
 Link : https://www.wtwr.eithermouse.com
