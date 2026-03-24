@@ -4,7 +4,7 @@ About The Project
 
 The concept of the app is straightforward: it sends a request to an API, which returns the daily weather forecast. We then gather and process this weather data it suggest appropriate clothing to the user based on the weather forecast.
 
-What was used?
+What tools were used?
 
     - HTML
     - CSS
